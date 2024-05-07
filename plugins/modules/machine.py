@@ -217,6 +217,7 @@ def data_for_add_machine(module):
 def add_machine(module, client: Client):
     data = data_for_add_machine(module)
     machine = Machine.create(client, data)
+    print("machin id: ", machine.id)
     updated_machine = Machine.wait_for_state(
         machine.id, client, False, MachineTaskState.ready
     )

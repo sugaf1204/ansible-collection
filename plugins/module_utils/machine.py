@@ -334,10 +334,14 @@ class Machine(MaasValueMapper):
         while True:
             try:
                 maas_dict = client.get(f"/api/2.0/machines/{id}/").json
+                print("response: ")
+                print(maas_dict)
             except errors.MaasError:
                 raise errors.MachineNotFound(id)
 
             if maas_dict["status_name"] in states:  # IMPLEMENT TIMEOUT?
+                print("Machine state: ", maas_dict["status_name"])
+                print("states: ", states)
                 return cls.from_maas(maas_dict)
             if maas_dict["status_name"] in [
                 MachineTaskState.failed_comissioning.value,
